@@ -1,14 +1,15 @@
 import random
-import json
 
 # Estado inicial del juego
-tablero = ["██ "] * 50
+tablero = ["█"] * 50
 posicion_jugador_A1 = 0  # Ficha 1 del Jugador A
 posicion_jugador_A2 = 0  # Ficha 2 del Jugador A
 posicion_jugador_B1 = 49  # Ficha 1 del Jugador B
 posicion_jugador_B2 = 49  # Ficha 2 del Jugador B
 jugador_usuario = "A"  # Jugador controlado por el usuario
+jugador_maquina = "B"  # Jugador controlado por la máquina
 turno = 0  # 0 para Jugador A, 1 para Jugador B
+ultimo_dado = None  # Almacena el resultado del último lanzamiento de dado
 
 # Función para mostrar el tablero
 def mostrar_tablero():
@@ -25,7 +26,9 @@ def mostrar_tablero():
 
 # Función para lanzar el dado
 def lanzar_dado():
-    return random.randint(1, 6)
+    global ultimo_dado
+    ultimo_dado = random.randint(1, 6)
+    return ultimo_dado
 
 # Función para verificar si una casilla está ocupada por el oponente
 def casilla_ocupada_por_oponente(posicion, jugador):
@@ -96,13 +99,20 @@ def verificar_ganador():
 # Función para realizar un movimiento
 def realizar_movimiento(jugador, ficha):
     global turno
-    dado = lanzar_dado()
+    if ultimo_dado is None:
+        return {"error": "Primero debes lanzar el dado."}
     if jugador == "A":
-        mover_jugador_A(ficha, dado)
+        mover_jugador_A(ficha, ultimo_dado)
     elif jugador == "B":
-        mover_jugador_B(ficha, dado)
+        mover_jugador_B(ficha, ultimo_dado)
     turno = 1 - turno  # Cambia el turno
-    return dado
+    return {"dado": ultimo_dado, "ficha": ficha}
+
+# Función para que la máquina juegue
+def jugar_maquina():
+    ficha = random.choice([1, 2])  # La máquina elige una ficha aleatoria
+    realizar_movimiento(jugador_maquina, ficha)
+    return ficha
 
 # Función para obtener el estado actual del juego
 def obtener_estado():
