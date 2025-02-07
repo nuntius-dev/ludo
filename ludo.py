@@ -1,7 +1,7 @@
 import random
 
 # Estado inicial del juego
-tablero = ["█"] * 50
+tablero = ["⬛"] * 50
 posicion_jugador_A1 = 0  # Ficha 1 del Jugador A
 posicion_jugador_A2 = 0  # Ficha 2 del Jugador A
 posicion_jugador_B1 = 49  # Ficha 1 del Jugador B
