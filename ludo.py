@@ -15,7 +15,7 @@ ultimo_dado = None  # Almacena el resultado del último lanzamiento de dado
 def mostrar_tablero():
     tablero_display = tablero.copy()
     if posicion_jugador_A1 < 50:
-        tablero_display[posicion_jugador_A1] = "🟥"  # Ficha 1 del Jugador A
+        tablero_display[posicion_jugador_A1] = "🔴"  # Ficha 1 del Jugador A
     if posicion_jugador_A2 < 50:
         tablero_display[posicion_jugador_A2] = "🔶"  # Ficha 2 del Jugador A
     if posicion_jugador_B1 >= 0:
